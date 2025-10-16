@@ -26,7 +26,7 @@ To help you get started creating a container from this image you can either use 
 ---
 services:
   cookcli:
-    image: ghcr.io/tr4cks/cookcli:latest
+    image: ghcr.io/tr4cks/docker-cookcli:latest
     container_name: cookcli
     environment:
       - PUID=1000
@@ -50,7 +50,7 @@ docker run -d \
   -p 9080:9080 \
   -v /path/to/cookcli/recipes:/recipes \
   --restart unless-stopped \
-  ghcr.io/tr4cks/cookcli:latest
+  ghcr.io/tr4cks/docker-cookcli:latest
 ```
 
 ## Parameters
