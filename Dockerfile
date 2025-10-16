@@ -5,7 +5,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:3.22
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG COOKLI_VERSION
+ARG COOKCLI_VERSION
 LABEL build_version="Version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="tr4cks"
 
