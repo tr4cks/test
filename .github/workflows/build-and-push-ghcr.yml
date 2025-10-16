@@ -6,7 +6,7 @@ on:
       - 'v*.*.*-*'   # always in this format
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/cookcli
 
 jobs:
   build-and-push:
