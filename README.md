@@ -20,7 +20,7 @@ To help you get started creating a container from this image you can either use 
 > [!NOTE]
 > Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
 
-### docker-compose (recommended, [click here for more info - LinuxServer.io documentation](https://docs.linuxserver.io/general/docker-compose))
+### docker-compose (recommended, [click here for more info - LinuxServer.io](https://docs.linuxserver.io/general/docker-compose))
 
 ```yaml
 ---
