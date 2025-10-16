@@ -1,8 +1,20 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-mkdir -p /recipes
+RECIPES_DIRECTORY="/recipes"
+mkdir -p "$RECIPES_DIRECTORY"
+
+if [ ! -d "$RECIPES_DIRECTORY/.cooklang" ]; then
+  echo "The .cooklang folder does not exist, creating new collection..."
+  /usr/local/bin/chef collection new "$RECIPES_DIRECTORY"
+  echo "New collection created!"
+fi
+
+/usr/local/bin/chef collection set "$RECIPES_DIRECTORY"
 
 if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
-    lsiown -R abc:abc /recipes
+    lsiown -R abc:abc \
+        /config
+    lsiown abc:abc \
+        /recipes
 fi

@@ -6,9 +6,9 @@ export RECIPES_DIRECTORY="/recipes"
 if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
     exec \
         s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8080" \
-            s6-setuidgid abc /usr/local/bin/chef serve --host --path $RECIPES_DIRECTORY
+            s6-setuidgid abc /usr/local/bin/chef serve --host --path /config
 else
     exec \
         s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8080" \
-            /usr/local/bin/chef serve --host --path $RECIPES_DIRECTORY
+            /usr/local/bin/chef serve --host --path /config
 fi
