@@ -40,14 +40,12 @@ jobs:
             --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S+00:00) \
             --build-arg VERSION=$IMMUTABLE_TAG \
             --build-arg COOKCLI_VERSION=$FLOATING_TAG \
-            -t $IMAGE_NAME:latest .
+            -t $IMAGE_NAME:$IMMUTABLE_TAG .
 
-          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMMUTABLE_TAG
-          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$FLOATING_TAG
+          docker tag $IMAGE_NAME:$IMMUTABLE_TAG $IMAGE_NAME:$FLOATING_TAG
 
       # 5️⃣ Push Docker image to GHCR
       - name: Push Docker image
         run: |
           docker push $IMAGE_NAME:$IMMUTABLE_TAG
           docker push $IMAGE_NAME:$FLOATING_TAG
-          docker push $IMAGE_NAME:latest
