@@ -5,7 +5,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:3.22
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG COOKCLI_VERSION
+ARG CHEF_VERSION
 LABEL build_version="Version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="tr4cks"
 
@@ -14,16 +14,16 @@ ENV HOME="/recipes"
 
 RUN \
   echo "**** install runtime packages ****" && \
-  if [ -z ${COOKCLI_VERSION+x} ]; then \
-    COOKCLI_VERSION=$(curl -sX GET "https://api.github.com/repos/cooklang/cookcli/releases/latest" \
+  if [ -z ${CHEF_VERSION+x} ]; then \
+    CHEF_VERSION=$(curl -sX GET "https://api.github.com/repos/Zheoni/cooklang-chef/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
-  export COMMIT_TAG="${COOKCLI_VERSION}" && \
+  export COMMIT_TAG="${CHEF_VERSION}" && \
   curl -o \
-    /tmp/cookcli.tar.gz -L \
-    "https://github.com/cooklang/cookcli/releases/download/${COOKCLI_VERSION}/cook-x86_64-unknown-linux-musl.tar.gz" && \
+    /tmp/chef.tar.gz -L \
+    "https://github.com/Zheoni/cooklang-chef/releases/download/${CHEF_VERSION}/chef-x86_64-unknown-linux-musl.tar.gz" && \
   tar xzf \
-    /tmp/cookcli.tar.gz -C \
+    /tmp/chef.tar.gz -C \
     /usr/local/bin/ && \
   chown root:root /usr/local/bin/cook && \
   chmod 755 /usr/local/bin/cook && \
@@ -35,6 +35,6 @@ RUN \
 COPY root/ /
 
 # ports and volumes
-EXPOSE 9080
+EXPOSE 8080
 
 VOLUME /recipes

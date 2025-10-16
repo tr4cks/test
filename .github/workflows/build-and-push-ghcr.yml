@@ -39,7 +39,7 @@ jobs:
           docker build \
             --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S+00:00) \
             --build-arg VERSION=$IMMUTABLE_TAG \
-            --build-arg COOKCLI_VERSION=$FLOATING_TAG \
+            --build-arg CHEF_VERSION=$FLOATING_TAG \
             -t $IMAGE_NAME:$IMMUTABLE_TAG .
 
           docker tag $IMAGE_NAME:$IMMUTABLE_TAG $IMAGE_NAME:$FLOATING_TAG
