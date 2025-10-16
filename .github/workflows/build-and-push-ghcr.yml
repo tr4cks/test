@@ -3,11 +3,10 @@ name: Build and Push Docker Image to GHCR
 on:
   push:
     tags:
-      - 'v*.*.*-*'   # always in this format
+      - 'v*.*.*-*'  # always in this format
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/cookcli
-  #IMAGE_NAME: ghcr.io/tr4cks/cookcli
 
 jobs:
   build-and-push:
@@ -29,36 +28,26 @@ jobs:
 
       # 3️⃣ Set Docker tags
       - name: Set Docker tags
-        id: docker_tags
         run: |
-          GIT_TAG="${GITHUB_REF#refs/tags/}"        # e.g., v1.1.1-4
-          IMMUTABLE_TAG="$GIT_TAG"                  # full tag
-          FLOATING_TAG="${GIT_TAG%-*}"              # e.g., v1.1.1
-          DOCKER_TAG_LATEST="latest"
-
-          echo "IMMUTABLE_TAG=$IMMUTABLE_TAG" >> $GITHUB_ENV
-          echo "FLOATING_TAG=$FLOATING_TAG" >> $GITHUB_ENV
-          echo "DOCKER_TAG_LATEST=$DOCKER_TAG_LATEST" >> $GITHUB_ENV
+          GIT_TAG="${GITHUB_REF#refs/tags/}"  # e.g., v0.18.1-42
+          echo "IMMUTABLE_TAG=$GIT_TAG" >> $GITHUB_ENV
+          echo "FLOATING_TAG=${GIT_TAG%-*}" >> $GITHUB_ENV
 
       # 4️⃣ Build Docker image with ARGs
       - name: Build Docker image
         run: |
-          BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          VERSION=$IMMUTABLE_TAG
-          COOKCLI_VERSION=$FLOATING_TAG
-
           docker build \
-            --build-arg BUILD_DATE=$BUILD_DATE \
-            --build-arg VERSION=$VERSION \
-            --build-arg COOKCLI_VERSION=$COOKCLI_VERSION \
-            -t $IMAGE_NAME:$DOCKER_TAG_LATEST .
+            --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%S+00:00) \
+            --build-arg VERSION=$IMMUTABLE_TAG \
+            --build-arg COOKCLI_VERSION=$FLOATING_TAG \
+            -t $IMAGE_NAME:latest .
 
-          docker tag $IMAGE_NAME:$DOCKER_TAG_LATEST $IMAGE_NAME:$IMMUTABLE_TAG
-          docker tag $IMAGE_NAME:$DOCKER_TAG_LATEST $IMAGE_NAME:$FLOATING_TAG
+          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMMUTABLE_TAG
+          docker tag $IMAGE_NAME:latest $IMAGE_NAME:$FLOATING_TAG
 
       # 5️⃣ Push Docker image to GHCR
       - name: Push Docker image
         run: |
-          docker push $IMAGE_NAME:$DOCKER_TAG_LATEST
           docker push $IMAGE_NAME:$IMMUTABLE_TAG
           docker push $IMAGE_NAME:$FLOATING_TAG
+          docker push $IMAGE_NAME:latest
