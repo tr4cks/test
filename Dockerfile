@@ -25,8 +25,8 @@ RUN \
   tar xzf \
     /tmp/chef.tar.gz -C \
     /usr/local/bin/ && \
-  chown root:root /usr/local/bin/cook && \
-  chmod 755 /usr/local/bin/cook && \
+  chown root:root /usr/local/bin/chef && \
+  chmod 755 /usr/local/bin/chef && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
