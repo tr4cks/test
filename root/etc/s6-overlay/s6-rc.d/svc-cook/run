@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+export RECIPES_DIRECTORY="/recipes"
+
+if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 9080" \
+            s6-setuidgid abc /usr/local/bin/cook server --host $RECIPES_DIRECTORY
+else
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 9080" \
+            /usr/local/bin/cook server --host $RECIPES_DIRECTORY
+fi
+
+
+#            cd /app/cook s6-setuidgid abc cook server --host $RECIPES_DIRECTORY
+
+#             cd /app/cook cook server --host $RECIPES_DIRECTORY
