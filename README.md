@@ -1,13 +1,13 @@
 > [!NOTE]
 > This Docker image is based on a [LinuxServer.io](https://www.linuxserver.io/) image and inherits all of its features and capabilities. Some sections of this README have been inspired by or adapted from documentation provided by LinuxServer.io to streamline information and avoid unnecessary repetition. Thanks to the LinuxServer.io team for their work.
 
-# Docker image for [cooklang/cookcli](https://github.com/cooklang/cookcli)
+# Docker image for [Zheoni/cooklang-chef](https://github.com/Zheoni/cooklang-chef)
 
-[cooklang/cookcli](https://github.com/cooklang/cookcli) is a tool for writing, organizing, and processing recipes in a structured, machine-readable way.
+[Zheoni/cooklang-chef](https://github.com/Zheoni/cooklang-chef) is a CLI to manage [cooklang](https://cooklang.org/) recipes with extensions.
 
 ## Application Setup
 
-Access the webui at `<your-ip>:9080`, for more information check out [Cooklang](https://cooklang.org/).
+Access the webui at `<your-ip>:8080`, for more information check out [Chef documentation](https://github.com/Zheoni/cooklang-chef/blob/main/docs/README.md).
 
 ## Non-Root Operation
 
@@ -25,17 +25,17 @@ To help you get started creating a container from this image you can either use 
 ```yaml
 ---
 services:
-  cookcli:
-    image: ghcr.io/tr4cks/docker-cookcli:latest
-    container_name: cookcli
+  chef:
+    image: ghcr.io/tr4cks/docker-cooklang-chef:latest
+    container_name: chef
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/cookcli/recipes:/recipes
+      - /path/to/chef/recipes:/recipes
     ports:
-      - 9080:9080
+      - 8080:8080
     restart: unless-stopped
 ```
 
@@ -43,14 +43,14 @@ services:
 
 ```bash
 docker run -d \
-  --name=cookcli \
+  --name=chef \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Etc/UTC \
-  -p 9080:9080 \
-  -v /path/to/cookcli/recipes:/recipes \
+  -p 8080:8080 \
+  -v /path/to/chef/recipes:/recipes \
   --restart unless-stopped \
-  ghcr.io/tr4cks/docker-cookcli:latest
+  ghcr.io/tr4cks/docker-cooklang-chef:latest
 ```
 
 ## Parameters
@@ -59,7 +59,7 @@ Containers are configured using parameters passed at runtime (such as those abov
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 9080:9080` | Port for Cookcli's web interface. |
+| `-p 8080:8080` | Port for Chef's web interface. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
