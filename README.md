@@ -63,7 +63,7 @@ Containers are configured using parameters passed at runtime (such as those abov
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
-| `-v /recipes` | Persistent recipes files |
+| `-v /recipes` | Destination of chef recipes |
 | `--read-only=true` | Run container with a read-only filesystem. Please [read the docs from LinuxServer.io](https://docs.linuxserver.io/misc/read-only/). |
 | `--user=1000:1000` | Run container with a non-root user. Please [read the docs from LinuxServer.io](https://docs.linuxserver.io/misc/non-root/). |
 
