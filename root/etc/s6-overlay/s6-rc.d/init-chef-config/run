@@ -4,11 +4,9 @@
 RECIPES_DIRECTORY="/recipes"
 mkdir -p "$RECIPES_DIRECTORY"
 
-/usr/local/bin/chef config --path /config
-
 if [ ! -d "$RECIPES_DIRECTORY/.cooklang" ]; then
   echo "The .cooklang folder does not exist, creating new collection..."
-  /usr/local/bin/chef collection new /recipes   #"$RECIPES_DIRECTORY"
+  /usr/local/bin/chef collection new "$RECIPES_DIRECTORY"
   echo "New collection created!"
 fi
 
@@ -18,5 +16,5 @@ if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
     lsiown -R abc:abc \
         /config
     lsiown abc:abc \
-        /recipes
+        "$RECIPES_DIRECTORY"
 fi
