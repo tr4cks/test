@@ -6,6 +6,7 @@ mkdir -p "$RECIPES_DIRECTORY"
 
 if [ ! -d "$RECIPES_DIRECTORY/.cooklang" ]; then
   echo "The .cooklang folder does not exist, creating new collection..."
+  ls -la "$RECIPES_DIRECTORY"
   /usr/local/bin/chef collection new "$RECIPES_DIRECTORY"
   echo "New collection created!"
 fi
