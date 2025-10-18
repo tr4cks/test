@@ -6,14 +6,18 @@ mkdir -p "$RECIPES_DIRECTORY"
 
 if [ ! -d "$RECIPES_DIRECTORY/.cooklang" ]; then
   echo "The .cooklang folder does not exist, creating new collection..."
-  ls -la "$RECIPES_DIRECTORY"
-  /usr/local/bin/chef collection new "$RECIPES_DIRECTORY"
-  echo "After"
-  ls -la "$RECIPES_DIRECTORY"
+  # See https://github.com/Zheoni/cooklang-chef/discussions/56#discussioncomment-14718863
+  # /usr/local/bin/chef collection new "$RECIPES_DIRECTORY"
+  mkdir "$RECIPES_DIRECTORY/.cooklang"
   echo "New collection created!"
 fi
 
+ls -la "$RECIPES_DIRECTORY"
+
 /usr/local/bin/chef collection set "$RECIPES_DIRECTORY"
+
+echo "After"
+ls -la "$RECIPES_DIRECTORY"
 
 if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
     lsiown -R abc:abc \
